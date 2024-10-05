@@ -1,25 +1,47 @@
-import logo from './logo.svg';
+import React, { useEffect } from 'react';
+import Navbar from './components/Navbar';
+import Hero from './components/Hero';
+import About from './components/About';
+import Footer from './components/Footer';
 import './App.css';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    useEffect(() => {
+        const header = document.querySelector("header");
+        const logoImage = document.getElementById("logo-image");
+
+        const handleScroll = () => {
+            if (window.scrollY > 0) {
+                header.classList.add("sticky");
+                logoImage.src = "logo2.png";
+            } else {
+                header.classList.remove("sticky");
+                logoImage.src = "logo1.png";
+            }
+        };
+
+        window.addEventListener("scroll", handleScroll);
+
+        return () => {
+            window.removeEventListener("scroll", handleScroll);
+        };
+    }, []);
+
+    useEffect(() => {
+        const importanceElement = document.getElementById("banner");
+        if (importanceElement) {
+            importanceElement.scrollIntoView({ behavior: "smooth" });
+        }
+    }, []);
+
+    return (
+        <div className="App">
+            <Navbar />
+            <Hero />
+            <About />
+            <Footer />
+        </div>
+    );
 }
 
 export default App;
