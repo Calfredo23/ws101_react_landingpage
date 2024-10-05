@@ -20,7 +20,19 @@ function App() {
             }
         };
 
+        const checkImageLoad = () => {
+            if (logoImage.complete && logoImage.naturalHeight !== 0) {
+                logoImage.src = "logo1.png";
+            } else {
+                logoImage.src = "logo1.png";
+                logoImage.onload = () => {
+                    logoImage.src = "logo1.png";
+                };
+            }
+        };
+
         window.addEventListener("scroll", handleScroll);
+        checkImageLoad();
 
         return () => {
             window.removeEventListener("scroll", handleScroll);
